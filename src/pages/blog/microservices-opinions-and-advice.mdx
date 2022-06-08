@@ -1,9 +1,13 @@
----
-date: '2020-12-12T19:48:29.450Z'
-title: Sustainable microservices, my opinions and advice
-description: A guide on how to implement the softer and more difficult concept
-  of good patterns or best practices.
----
+import Head from 'next/head';
+
+export const meta = {
+  date: '2020-12-12T19:48:29.450Z',
+  title: 'Sustainable microservices, my opinions and advice'
+};
+
+<Head>
+  <title>{meta.title}</title>
+</Head>
 
 # Sustainable microservices, my opinions and advice
 
@@ -54,7 +58,7 @@ service Orders {
 
 We often have pull request conversations around a proto like below, which we can resolve before anyone writes any code.
 
-<Image src="/assets/protobuf-pr.png" alt="Github pr discussion" />
+<img src="/assets/protobuf-pr.png" alt="Github pr discussion" />
 
 ## Don’t cross models (protobuf models)
 
@@ -92,7 +96,6 @@ message Order {
   google.protobuf.Timestamp create_time = 4;
   google.protobuf.Timestamp update_time = 5;
 }
-
 ```
 
 ## Ssssh, tables are a secret
@@ -204,7 +207,7 @@ For example, imagine if you run a cronjob to alert people of an expired credit c
 
 This also protects you from external systems and services. For example, our audit logs are stored in [BigQuery](https://cloud.google.com/bigquery/) and this happens via a Pub/Sub with every mutating action. If BigQuery is down it won’t affect any of our services, and when BigQuery comes back the records will be written just fine.
 
-<Image src="/assets/pub-sub-chart.png" alt="Graph of pubsub" />
+<img src="/assets/pub-sub-chart.png" alt="Graph of pubsub" />
 
 ## Keep databases separate
 
@@ -216,7 +219,7 @@ This has benefits from a security perspective for sure, but also guarantees isol
 
 Whilst simple logging can be useful in some circumstances, in general, it’s much better to annotate a trace. If you do log, log to the trace and STDOUT if possible, this means in the log file you’ll have a trace ID and can jump straight to the trace, which will show that log line in context of the whole system. We use Logr for this purpose.
 
-<Image src="/assets/trace.png" alt="An example trace" />
+<img src="/assets/trace.png" alt="An example trace" />
 
 ## Idempotency is important
 
@@ -240,11 +243,14 @@ For example, imagine you wanted to work out what to pick in a warehouse by check
 
 Graphs are super important in order to know how a deploy is going and how your service is behaving on a low level.
 
-<Image src="/assets/get-graph.png" alt="Graph showing RPCs" />
+<img src="/assets/get-graph.png" alt="Graph showing RPCs" />
 
 But you can also instrument things like “emails sent” or other useful and interesting things, which may or may not belong in analytics.
 
-<Image src="/assets/notifications-graph.png" alt="Emails sent split by provider" />
+<img
+  src="/assets/notifications-graph.png"
+  alt="Emails sent split by provider"
+/>
 
 This is a breakdown of notification types from our notifications service. Monitoring graphs like this regularly can help you identify issues with a specific service.
 

@@ -1,7 +1,7 @@
 module.exports = {
-  future: 'all',
-  experimental: 'all',
-  purge: ['./pages/**/*.js', './components/**/*.js'],
-  variants: {},
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {}
+  },
   plugins: [require('@tailwindcss/typography')]
 };
